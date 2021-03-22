@@ -1,3 +1,8 @@
+# matrix is 2D array
+
+from pygame import Vector2
+
+
 def printMatrix(matrix):
     r = len(matrix)
     if r == 0:
@@ -10,6 +15,48 @@ def printMatrix(matrix):
             text += str(matrix[i][j]) + ' '
         print(text)
 
+
+def determinant(matrix):
+    checkMatrix(matrix)
+
+    r = len(matrix)
+    c = len(matrix[0])
+
+    if r != c:
+        raise Exception('Can\'t find determinant for non-square matrix')
+
+    if r == 1:
+        return matrix[0][0]
+
+    det = 0
+    for j in range(c):
+        mat = []
+        for k in range(1, r):
+            li = []
+            for l in range(c):
+                if j == l:
+                    continue
+                li.append(matrix[k][l])
+            mat.append(li)
+        if j % 2 == 0:
+            det += matrix[0][j] * determinant(mat)
+        else:
+            det -= matrix[0][j] * determinant(mat)
+
+    return det
+
+
+def orientation2d(a, b, c):
+    matrix = [[a.x, a.y, 1], [b.x, b.y, 1], [c.x, c.y, 1]]
+    det = determinant(matrix)
+    if det > 0:
+        return 1  # anticlockwise
+    elif det < 0:
+        return -1  # clockwise
+    else:
+        return 0
+
+
 def checkMatrix(matrix):
     r = len(matrix)
     if r == 0:
@@ -17,7 +64,9 @@ def checkMatrix(matrix):
 
     c = len(matrix[0])
     if c == 0:
-        raise Exception('matrix\'s order is not defined. Column length is zero.')
+        raise Exception(
+            'matrix\'s order is not defined. Column length is zero.')
+
 
 def multiplication(mat_a, mat_b):
     checkMatrix(mat_a)
@@ -29,7 +78,8 @@ def multiplication(mat_a, mat_b):
     c_b = len(mat_b[0])
 
     if c_a != r_b:
-        raise Exception('order of column of matrix A does not equal to the order of row of matrix B.')
+        raise Exception(
+            'order of column of matrix A does not equal to the order of row of matrix B.')
 
     result = [[0 for i in range(c_b)] for j in range(r_a)]
     for i in range(r_a):
@@ -38,6 +88,7 @@ def multiplication(mat_a, mat_b):
                 result[i][j] += mat_a[i][k] * mat_b[k][j]
 
     return result
+
 
 def minorElement(matrix, i, j):
     r = len(matrix)
@@ -64,6 +115,7 @@ def minorElement(matrix, i, j):
 def cofactorElement(matrix, i, j):
     return (1 if (i + j) % 2 == 0 else -1) * minorElement(matrix, i, j)
 
+
 def tranpose(matrix):
     checkMatrix(matrix)
     r = len(matrix)
@@ -77,6 +129,7 @@ def tranpose(matrix):
 
     return result
 
+
 def minor(matrix):
     r = len(matrix)
     c = len(matrix[0])
@@ -87,6 +140,7 @@ def minor(matrix):
             result[i][j] = minorElement(matrix, i, j)
 
     return result
+
 
 def cofactor(matrix):
     r = len(matrix)
@@ -99,6 +153,7 @@ def cofactor(matrix):
             result[i][j] = cofactorElement(matrix, i, j)
 
     return result
+
 
 def inverse(matrix):
     checkMatrix(matrix)
@@ -120,32 +175,3 @@ def inverse(matrix):
             result[i][j] = result[i][j] / det
 
     return result
-
-def determinant(matrix):
-    checkMatrix(matrix)
-
-    r = len(matrix)
-    c = len(matrix[0])
-
-    if r != c:
-        raise Exception('Can\'t find determinant for non-square matrix')
-
-    if r == 1:
-        return matrix[0][0]
-
-    det = 0
-    for j in range(c):
-        mat = []
-        for k in range(1,r):
-            li = []
-            for l in range(c):
-                if j == l:
-                    continue
-                li.append(matrix[k][l])
-            mat.append(li)
-        if j % 2 == 0:
-            det += matrix[0][j] * determinant(mat)
-        else:
-            det -= matrix[0][j] * determinant(mat)
-
-    return det

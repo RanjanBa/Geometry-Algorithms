@@ -1,11 +1,14 @@
-from lineSegment import checkLineSegmentIntersection
 from bintrees import AVLTree
 from functools import cmp_to_key
 
-def cmp(a, b):
+from utilities.line_segment import LineSegment
+
+
+def __cmp(a, b):
     if a[0].x == b[0].x:
         return a[0].y - b[0].y
     return a[0].x - b[0].x
+
 
 def linesToSortedPoints(lines):
     points = []
@@ -17,15 +20,16 @@ def linesToSortedPoints(lines):
             points.append((line.start, False, line, True))
             points.append((line.end, True, line, True))
 
-    points.sort(key=cmp_to_key(cmp))
+    points.sort(key=cmp_to_key(__cmp))
     return points
+
 
 def sweepLine(lines):
     points = linesToSortedPoints(lines)
 
     print(len(points))
     for pt in points:
-        print(pt[0],pt[1])
+        print(pt[0], pt[1])
 
     active_lines = AVLTree()
     intersectedLines = []
@@ -42,7 +46,7 @@ def sweepLine(lines):
             try:
                 prev = active_lines.prev_key((pt[0].y, pt[0].x))
                 line2 = active_lines[prev]
-                check = checkLineSegmentIntersection(line1, line2)
+                check = LineSegment.checkSegmentIntersection(line1, line2)
                 print(line1, line2, check)
                 if check:
                     intersectedLines.extend([line1, line2])
@@ -52,7 +56,7 @@ def sweepLine(lines):
             try:
                 succ = active_lines.succ_key((pt[0].y, pt[0].x))
                 line2 = active_lines[succ]
-                check = checkLineSegmentIntersection(line1, line2)
+                check = LineSegment.checkSegmentIntersection(line1, line2)
                 print(line1, line2, check)
                 if check:
                     intersectedLines.extend([line1, line2])
@@ -71,7 +75,8 @@ def sweepLine(lines):
                     try:
                         succ = active_lines.succ_key((pt[0].y, pt[0].x))
                         line2 = active_lines[succ]
-                        check = checkLineSegmentIntersection(line1, line2)
+                        check = LineSegment.checkSegmentIntersection(
+                            line1, line2)
                         print(line1, line2, check)
                         if check:
                             intersectedLines.extend([line1, line2])
