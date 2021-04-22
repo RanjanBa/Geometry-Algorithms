@@ -1,5 +1,10 @@
-from pygame import Vector2
+"""
+    Contains algorithms for cliping polygon with rectangle window
+"""
 
+# from typing import
+from pygame import Vector2, Rect
+import pygame_gui
 from utilities.line_segment import LineSegment
 
 # rect = (top, right, bottom, left)

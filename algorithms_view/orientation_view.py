@@ -9,7 +9,8 @@ from utilities.mouse import Mouse
 
 
 class OrientationView(Window):
-    def __init__(self):
+    def __init__(self, gui_manager):
+        super().__init__(gui_manager)
         self.__line = None
         self.__point = None
         self.__status_text = 'Orientation : '

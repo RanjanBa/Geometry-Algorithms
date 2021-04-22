@@ -1,3 +1,7 @@
+"""
+    Contains algorithms for calculating ConvexHull
+"""
+
 # TODO: need to update both algorithm for points on outer line i.e orientation == 0
 from functools import cmp_to_key
 
@@ -5,12 +9,23 @@ from utilities.algebra_math import orientation2d
 
 
 def __cmp(a, b):
+    """
+        Compare to two points.
+    """
     if a.x == b.x:
         return a.y - b.y
     return a.x - b.x
 
 
 def jurvisAlgo(points):
+    """
+        Return: 
+            points of convex hull
+        Args:
+            points = Vector2 from pygame
+
+        calculate convex hull using Jurvis algorithm
+    """
     length = len(points)
 
     if length <= 1:
@@ -43,6 +58,14 @@ def jurvisAlgo(points):
 
 
 def grahamScan(points):
+    """
+        Return: 
+            points of convex hull
+        Args:
+            points = Vector2 from pygame
+
+        calculate convex hull using Graham Scan algorithm
+    """
     length = len(points)
 
     points = sorted(points, key=cmp_to_key(__cmp))

@@ -4,26 +4,33 @@ from utilities.algebra_math import orientation2d, determinant, inverse, multipli
 
 
 class LineSegment:
-    def __init__(self, start, end, id=0):
-        self.start = start
-        self.end = end
-        self.id = id
+    def __init__(self, start, end):
+        self.__start = start
+        self.__end = end
+
+    @property
+    def start(self):
+        return self.__start
+
+    @property
+    def end(self):
+        return self.__end
 
     def __str__(self):
-        return f'Line({self.start}, {self.end}, {self.id})'
+        return f'LineSegment({self.__start}, {self.__end})'
 
     def intersectionPoint(self, other):
-        return LineSegment.lineSegmentsintersectionPoint(self, other)
+        return LineSegment.lineSegmentsIntersectionPoint(self, other)
 
     def checkIntersection(self, other):
         return LineSegment.checkSegmentIntersection(self, other)
 
     @staticmethod
     def checkSegmentIntersection(line1, line2):
-        p1 = line1.start
-        q1 = line1.end
-        p2 = line2.start
-        q2 = line2.end
+        p1 = line1.__start
+        q1 = line1.__end
+        p2 = line2.__start
+        q2 = line2.__end
 
         o1 = orientation2d(p1, q1, p2)
         o2 = orientation2d(p1, q1, q2)
@@ -48,16 +55,16 @@ class LineSegment:
         return False
 
     @staticmethod
-    def lineSegmentsintersectionPoint(line1, line2):
-        x1 = line1.start.x
-        y1 = line1.start.y
-        x2 = line1.end.x
-        y2 = line1.end.y
+    def lineSegmentsIntersectionPoint(line1, line2):
+        x1 = line1.__start.x
+        y1 = line1.__start.y
+        x2 = line1.__end.x
+        y2 = line1.__end.y
 
-        x3 = line2.start.x
-        y3 = line2.start.y
-        x4 = line2.end.x
-        y4 = line2.end.y
+        x3 = line2.__start.x
+        y3 = line2.__start.y
+        x4 = line2.__end.x
+        y4 = line2.__end.y
 
         if x2 - x1 == 0 or x4 - x3 == 0:
             pass

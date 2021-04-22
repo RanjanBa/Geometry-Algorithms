@@ -8,7 +8,8 @@ from utilities.mouse import Mouse
 
 
 class LineIntersectionView(Window):
-    def __init__(self):
+    def __init__(self, gui_manager):
+        super().__init__(gui_manager)
         self.__line1 = None
         self.__line2 = None
         self.__status_text = 'Line Intersection : '
@@ -26,7 +27,7 @@ class LineIntersectionView(Window):
                 self.__line1, self.__line2)
             if check:
                 self.__status_text = 'Line Segments intersect with each other.'
-                self.__intersection_point = LineSegment.lineSegmentsintersectionPoint(
+                self.__intersection_point = LineSegment.lineSegmentsIntersectionPoint(
                     self.__line1, self.__line2)
             else:
                 self.__status_text = 'Line Segment doesn\'t intersect with each other.'

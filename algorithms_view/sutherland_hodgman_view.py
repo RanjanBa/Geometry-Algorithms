@@ -8,7 +8,8 @@ from algorithms.sutherland_hodgman import sutherlandHodgman
 
 
 class SutherlandHodgmanView(Window):
-    def __init__(self):
+    def __init__(self, gui_manager):
+        super().__init__(gui_manager)
         self.__polygon = []
         self.__clip_window = []
         self.__cliping_points = []

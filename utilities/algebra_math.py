@@ -1,6 +1,7 @@
-# matrix is 2D array
-
+import math
 from pygame import Vector2
+
+# matrix is 2D array
 
 
 def printMatrix(matrix):
@@ -175,3 +176,18 @@ def inverse(matrix):
             result[i][j] = result[i][j] / det
 
     return result
+
+
+def rotateVector(vector, rotation):
+    # rotate the vector in anti-clickwise direction
+    rad = math.radians(-rotation)
+    mat_a = [[math.cos(rad), math.sin(rad)], [-math.sin(rad), math.cos(rad)]]
+    mat_v = [[vector.x], [vector.y]]
+
+    res = multiplication(mat_a, mat_v)
+    res_vec = Vector2(res[0][0], res[1][0])
+    return res_vec
+
+
+def scaleVector(vector, scale):
+    return Vector2(vector.x * scale, vector.y * scale)

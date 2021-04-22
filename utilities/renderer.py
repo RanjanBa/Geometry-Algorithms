@@ -3,6 +3,9 @@ from pygame import Vector2
 
 
 class Renderer:
+    """
+        Renderer is a singleton class. It uses pygame libray to draw objects and text.
+    """
     __instance = None
 
     @staticmethod

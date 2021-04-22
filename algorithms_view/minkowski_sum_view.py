@@ -8,7 +8,8 @@ from utilities.mouse import Mouse
 
 
 class MinkowskiSumView(Window):
-    def __init__(self):
+    def __init__(self, gui_manager):
+        super().__init__(gui_manager)
         self.__initialize()
 
     def __initialize(self):
